@@ -30,19 +30,19 @@ class ArrayToXml
     protected $numericTagNamePrefix = 'numeric_';
 
     /**
-     * Construct a new instance.
-     *
-     * @param string[] $array
-     * @param string|array $rootElement
+     * ArrayToXml constructor.
+     * @param array $array
+     * @param string $rootElement
+     * @param bool $formatOutput
      * @param bool $replaceSpacesByUnderScoresInKeyNames
-     * @param string $xmlEncoding
+     * @param null $xmlEncoding
      * @param string $xmlVersion
-     *
      * @throws DOMException
      */
-    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
+    public function __construct(array $array, $rootElement = '', $formatOutput = false, $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
     {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
+        $this->document->formatOutput = $formatOutput;
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
         if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
@@ -62,19 +62,18 @@ class ArrayToXml
     }
 
     /**
-     * Convert the given array to an xml string.
-     *
-     * @param string[] $array
-     * @param string|array $rootElement
+     * @param array $array
+     * @param string $rootElement
+     * @param bool $formatOutput
      * @param bool $replaceSpacesByUnderScoresInKeyNames
-     * @param string $xmlEncoding
+     * @param null $xmlEncoding
      * @param string $xmlVersion
-     *
      * @return string
+     * @throws DOMException
      */
-    public static function convert(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
+    public static function convert(array $array, $rootElement = '', $formatOutput = false, $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
     {
-        $converter = new static($array, $rootElement, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion);
+        $converter = new static($array, $rootElement, $formatOutput = false, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion);
 
         return $converter->toXml();
     }
