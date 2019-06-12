@@ -71,9 +71,9 @@ class ArrayToXml
      * @return string
      * @throws DOMException
      */
-    public static function convert(array $array, $rootElement = '', $formatOutput = false, $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
+    public static function caconvert(array $array, $rootElement = '', $formatOutput = false, $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
     {
-        $converter = new static($array, $rootElement, $formatOutput = false, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion);
+        $converter = new static($array, $rootElement, $formatOutput, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion);
 
         return $converter->toXml();
     }
